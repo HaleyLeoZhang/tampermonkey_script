@@ -19,6 +19,8 @@
         second = 0.5 // 循环检测时间定时器，单位，秒
         maxTimesToRemoveAd = 7 // 最多尝试多少次，去检测广告删除
         bottomSelector = "#hbidbox" // 底部广告选择器
+
+        // - 构造函数
         constructor() {
             // -
         }
