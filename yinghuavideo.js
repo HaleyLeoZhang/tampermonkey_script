@@ -16,8 +16,8 @@
     class AdClear {
         // 私有变量
         debug = true // 判断是否调试  true: 开启日志 false:关闭日志
-        second = 1 // 循环检测时间定时器
-        maxTimesToRemoveAd = 5 // 最多尝试多少次，去检测广告删除
+        second = 0.5 // 循环检测时间定时器，单位，秒
+        maxTimesToRemoveAd = 7 // 最多尝试多少次，去检测广告删除
         bottomSelector = "#hbidbox" // 底部广告选择器
         constructor() {
             // -
@@ -78,7 +78,7 @@
                     }
                 } else if (_this.bottomSelector === selectorTarget) { // 底部特殊处理
                     temp.parentNode.remove()
-                }else{
+                } else {
                     temp.remove()
                 }
                 _this.output(`${remark} checking`)
