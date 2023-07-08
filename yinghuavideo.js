@@ -15,8 +15,10 @@
 
     class AdClear {
         // 私有变量
-        debug = false // 判断是否调试  true: 开启日志 false:关闭日志
+        debug = true // 判断是否调试  true: 开启日志 false:关闭日志
         second = 1 // 循环检测时间定时器
+        maxTimesToRemoveAd = 5 // 最多尝试多少次，去检测广告删除
+        bottomSelector = "#hbidbox" // 底部广告选择器
         constructor() {
             // -
         }
@@ -37,55 +39,56 @@
             let m3u8Url = $("#playbox").attr("data-vid").split("$")[0]
             let html = `
             <h1 style="font-size:50px;color:blue;font-weight:800;margin-top:50px">视频播放地址</h1>
-            <input  style="font-size:30px" value="${m3u8Url}" placeholder="暂时没有抓到地址">
+            <h1 style="font-size:20px;margin-top:10px">${m3u8Url}</h1>
         `
             $("body").prepend(html)
         }
 
         // - 两侧广告
         adSide() {
-            let _this = this
-            let indexInter = 0
-            indexInter = setInterval(function () {
-                // 去除广告
-                var temp = document.querySelector("#HMcoupletDivright")
-                if (temp === null) {
-                    if (indexInter > 0) {
-                        clearInterval(indexInter)
-                        _this.output("adSide removed")
-                    }
-                } else {
-                    temp.remove()
-                    document.querySelector("#HMcoupletDivleft").remove()
-                }
-                _this.output("checking ad adSide")
-            }, 1000 * _this.second)
+            // 仅播放页面才生效
+            this.handleAdSelector("#HMcoupletDivleft", "左侧广告")
+            this.handleAdSelector("#HMcoupletDivright", "右侧广告")
         }
 
         // 底部广告
         adBottom() {
+            this.handleAdSelector(this.bottomSelector, "底部广告")
+        }
+
+        // 底部广告
+        handleAdSelector(selectorTarget, remark) {
             let _this = this
             let indexInter = 0
+            let tryTimes = 0
             indexInter = setInterval(function () {
+                tryTimes++
+                // 检测当前尝试次数
+                if (tryTimes > _this.maxTimesToRemoveAd) {
+                    clearInterval(indexInter)
+                    _this.output(`${remark} reach Max Times`)
+                    return
+                }
                 // 去除广告
-                var temp = document.querySelector("#hbidbox")
+                let temp = document.querySelector(selectorTarget)
                 if (temp === null) {
                     if (indexInter > 0) {
                         clearInterval(indexInter)
-                        _this.output("adBottom removed")
+                        _this.output(`${remark} removed`)
                     }
-                } else {
+                } else if (_this.bottomSelector === selectorTarget) { // 底部特殊处理
                     temp.parentNode.remove()
+                }else{
+                    temp.remove()
                 }
-                _this.output("checking ad adBottom")
+                _this.output(`${remark} checking`)
             }, 1000 * _this.second)
         }
 
         // 日志处理
         output(d) {
-            let _this = this
             if (this.debug) {
-                _this.output(d)
+                console.log(d)
             }
         }
     }
