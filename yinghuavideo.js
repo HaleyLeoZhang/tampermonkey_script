@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name         www.yinghuavideo.com 视频抓取
+// @name         www.iyinghua.io 视频抓取
 // @namespace    www.hlzblog.top
 // @version      0.1
 // @description  try to take over the world!
 // @author       github.com/HaleyLeoZhang
-// @match        www.yinghuavideo.com
-// @match        www.yinghuavideo.com/*
+// @match        www.iyinghua.io
+// @match        www.iyinghua.io/*
 // @icon         http://www.hlzblog.top/favicon.ico
 // @grant        none
 // ==/UserScript==
