@@ -51,6 +51,8 @@
             // 仅播放页面才生效
             this.handleAdSelector("#HMcoupletDivleft", "左侧广告")
             this.handleAdSelector("#HMcoupletDivright", "右侧广告")
+            this.handleAdSelector("#hbidbox", "右下角角标")
+
         }
 
         // 底部广告
@@ -65,29 +67,29 @@
             let tryTimes = 0
             // 增加隐藏css设置
             $("head").eq(0).append(`<style>${selectorTarget}{display:none;}</style>`)
-            // // 去除节点
-            // indexInter = setInterval(function () {
-            //     tryTimes++
-            //     // 检测当前尝试次数
-            //     if (tryTimes > _this.maxTimesToRemoveAd) {
-            //         clearInterval(indexInter)
-            //         _this.output(`${remark} reach Max Times`)
-            //         return
-            //     }
-            //     // 去除广告
-            //     let temp = document.querySelector(selectorTarget)
-            //     if (temp === null) {
-            //         if (indexInter > 0) {
-            //             clearInterval(indexInter)
-            //             _this.output(`${remark} removed`)
-            //         }
-            //     } else if (_this.bottomSelector === selectorTarget) { // 底部特殊处理
-            //         temp.parentNode.remove()
-            //     } else {
-            //         temp.remove()
-            //     }
-            //     _this.output(`${remark} checking`)
-            // }, 1000 * _this.second)
+            // 去除节点
+            indexInter = setInterval(function () {
+                tryTimes++
+                // 检测当前尝试次数
+                if (tryTimes > _this.maxTimesToRemoveAd) {
+                    clearInterval(indexInter)
+                    _this.output(`${remark} reach Max Times`)
+                    return
+                }
+                // 去除广告
+                let temp = document.querySelector(selectorTarget)
+                if (temp === null) {
+                    if (indexInter > 0) {
+                        clearInterval(indexInter)
+                        _this.output(`${remark} removed`)
+                    }
+                } else if (_this.bottomSelector === selectorTarget) { // 底部特殊处理
+                    temp.parentNode.remove()
+                } else {
+                    temp.remove()
+                }
+                _this.output(`${remark} checking`)
+            }, 1000 * _this.second)
         }
 
         // 日志处理

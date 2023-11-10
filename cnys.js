@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         www.haitu.tv 视频地址抓取
+// @name         cnys.tv 视频地址抓取
 // @namespace    www.hlzblog.top
 // @version      0.1
 // @description  try to take over the world!
 // @author       github.com/HaleyLeoZhang
-// @match        www.haitu.tv
-// @match        www.haitu.tv/*
-// @icon         https://www.haitu.tv/upload/mxcms/20220425-1/8d1852eed1babfa6e00a4e57dddf551d.png
+// @match        cnys.tv
+// @match        cnys.tv/*
+// @icon         https://cnys.tv/static/Streamlab/img/logo3.png
 // @grant        none
 // ==/UserScript==
 
@@ -33,7 +33,8 @@
         showPlayUrl() {
             let _this = this
             // 仅播放页面才生效
-            if (location.href.match(/play\/.*?.html/) === null) {
+            // _this.output(location.href)
+            if (location.href.match(/vodplay/) === null) {
                 return
             }
             _this.output(`开始`)
@@ -42,10 +43,12 @@
             let res = document.body.innerHTML.match(/"url":"(.*?m3u8)"/i)
             if (res !== null) {
                 let m3u8Url = res[1]
-                m3u8Url = m3u8Url.replaceAll(/\\/g,"")
+                m3u8Url = m3u8Url.replace(/\\/g,"")
+                _this.output(`m3u8Url`)
+                _this.output(m3u8Url)
                 let html = `
-                        <h1 style="font-size:50px;color:red;font-weight:800;margin-top:100px;vertical-align: center">视频播放地址</h1>
-                        <h1 style="font-size:20px;margin-top:10px;vertical-align: center">${m3u8Url}</h1>
+                        <h1 style="font-size:50px;color:red;font-weight:800;margin-top:100px;vertical-align: center" >播放地址</h1>
+                        <h1 style="font-size:20px;color:white;margin-top:10px;vertical-align: center">${m3u8Url}</h1>
                     `
                 $("body").prepend(html)
                 _this.output(`showPlayUrl done`)
