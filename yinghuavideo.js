@@ -49,8 +49,8 @@
         // - 两侧广告
         adSide() {
             // 仅播放页面才生效
-            this.handleAdSelector("#HMcoupletDivleft", "左侧广告")
-            this.handleAdSelector("#HMcoupletDivright", "右侧广告")
+            this.handleAdSelector("#HMimageleft", "左侧广告")
+            this.handleAdSelector("#HMimageright", "右侧广告")
             this.handleAdSelector("#hbidbox", "右下角角标")
 
         }
